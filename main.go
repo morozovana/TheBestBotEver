@@ -12,7 +12,7 @@ func main() {
 		log.Panic(err)
 	}
 
-	bot.Debug = true
+	//bot.Debug = true
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
@@ -25,10 +25,22 @@ func main() {
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, handlemsg(update.Message.Text))
 			msg.ReplyToMessageID = update.Message.MessageID
 
 			bot.Send(msg)
 		}
 	}
+}
+func handlemsg(msg string) string {
+	if msg == "привет" {
+		return "abc"
+	}
+	if msg == "добрый день" {
+		return "def"
+	}
+	if msg == "добрый вечер" {
+		return "ghi"
+	}
+	return "jkl"
 }
