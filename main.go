@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -24,26 +26,31 @@ func main() {
 	for update := range updates {
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, handlemsg(update.Message.Text))
-			msg.ReplyToMessageID = update.Message.MessageID
-
-			_, err := bot.Send(msg)
-			if err != nil {
-				log.Panic(err)
+			ans := handlemsg(update.Message.Text)
+			for i := 0; i < len(ans); i++ {
+				fmt.Println(i)
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, ans[i])
+				msg.ReplyToMessageID = update.Message.MessageID
+				_, err := bot.Send(msg)
+				if err != nil {
+					log.Panic(err)
+				}
 			}
+
 		}
 	}
 }
-func handlemsg(msg string) string {
-	if msg == "привет" {
-		return "abc"
+func handlemsg(msg string) []string {
+	var answers []string
+	switch strings.ToLower(msg) {
+	case "привет":
+		answers = append(answers, "сейчас напишу abc", "abc")
+	case "добрый день":
+		answers = append(answers, "def")
+	case "добрый вечер":
+		answers = append(answers, "ghi")
+	default:
+		answers = append(answers, "jkl")
 	}
-	if msg == "добрый день" {
-		return "def"
-	}
-	if msg == "добрый вечер" {
-		return "ghi"
-	}
-	return "jkl"
+	return answers
 }
