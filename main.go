@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -28,7 +27,6 @@ func main() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			ans := handlemsg(update.Message.Text)
 			for i := 0; i < len(ans); i++ {
-				fmt.Println(i)
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, ans[i])
 				msg.ReplyToMessageID = update.Message.MessageID
 				_, err := bot.Send(msg)
