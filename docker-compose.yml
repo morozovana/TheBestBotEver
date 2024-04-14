@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+
+  golang:
+    image: golang:1.22
+    working_dir: /go/src/my_project
+    volumes:
+      - .:/go/src/my_project
+    command: go run main.go
