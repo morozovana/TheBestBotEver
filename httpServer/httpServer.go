@@ -1,4 +1,4 @@
-package main
+package httpServer
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ type Person struct {
 
 var people []Person
 
-func main() {
+func Run() {
 	http.HandleFunc("/people", peopleHandler)
 	http.HandleFunc("/health", healthCheckHandler)
 
@@ -36,7 +36,7 @@ func peopleHandler(w http.ResponseWriter, r *http.Request) {
 }
 func getPeople(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(people)
-	fmt.Fprint(w, "get people: '%v', people")
+	fmt.Fprintf(w, "get people: '%v'", people)
 }
 func postPerson(w http.ResponseWriter, r *http.Request) {
 	var person Person
@@ -46,7 +46,7 @@ func postPerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	people = append(people, person)
-	fmt.Fprint(w, "post new person: '%v', person")
+	fmt.Fprintf(w, "post new person: '%v'", person)
 }
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "http web-server works correctly")

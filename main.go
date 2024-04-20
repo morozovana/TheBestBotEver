@@ -1,6 +1,7 @@
 package main
 
 import (
+	"TheBestBotEver/httpServer"
 	"log"
 	"strings"
 
@@ -8,6 +9,9 @@ import (
 )
 
 func main() {
+	go func() {
+		httpServer.Run()
+	}()
 	bot, err := tgbotapi.NewBotAPI("6843460530:AAHYsOhi4wdRXFGn40M3nmSrfPlbEZohFSY")
 	if err != nil {
 		log.Panic(err)
