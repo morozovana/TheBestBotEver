@@ -36,7 +36,7 @@ func peopleHandler(w http.ResponseWriter, r *http.Request) {
 }
 func getPeople(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(people)
-	fmt.Fprintf(w, "get people: '%v'", people)
+	fmt.Fprint(w, "get people: '%v'", people)
 }
 func postPerson(w http.ResponseWriter, r *http.Request) {
 	var person Person
