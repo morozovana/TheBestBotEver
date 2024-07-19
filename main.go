@@ -56,6 +56,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to initialize db: %s", err.Error())
 	}
+
+	_ = db
+
 	//bot.Debug = true
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
